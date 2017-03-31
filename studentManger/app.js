@@ -22,8 +22,10 @@ app.use(express.static(path.join(__dirname,"./src/static")))
 
 //引入子路由
 const accountRouter = require(path.join(__dirname,"src/router/acount.js"))
+const studentRouter = require(path.join(__dirname,"src/router/studentRouter.js"))
 
 app.use("/account",accountRouter);
+app.use("/student",studentRouter);
 
 //开启服务器
 app.listen(3000,"127.0.0.1",(err) => {

@@ -1,9 +1,8 @@
 
 const fs = require("fs")
 const path = require("path");
-const MongoClient = require('mongodb').MongoClient
 
-const database = require(path.join(__dirname,"connectdatabase.js"))
+const database = require(path.join(__dirname,"../tools/connectdatabase.js"))
 
 exports.getLogin = (req,res) => {
 
@@ -20,19 +19,16 @@ exports.postLogin = (req,res) => {
 
   console.log(req.body)
 
-  var db = database.connectDataBase();
-  console.log(db);
-
-  // var collection = db.collection("account");
-
-  // collection.find({}).toArray(function(err, docs) {
-  
-  //   console.log(docs);
-  // });
-
-    
-    res.end("post success");
-
+  database.findOne("account",req.body,(doc) => {
+    console.log(doc);
+    if(doc!=null){
+      res.end("<script>window.location.href = '/student/list'</script>");
+    }else{
+      res.end("<script> window.location.href ='/account/login';</script>")
+      // "<script> window.location.herf ='/account/login';</script>"?
+      // "<script>alert('用户或是密码有误');window.location.href='/account/login';</script>"
+    }
+  })
 }
 
 
